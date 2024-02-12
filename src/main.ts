@@ -1,2 +1,11 @@
-export const name : string = 'Pxndxs 🐼⚡'
-console.log( `Hello, ${ name }!` )
+import { Server } from './presentation'
+
+
+
+( async () => {
+  main()
+} )()
+
+function main () {
+  Server.start()
+}
