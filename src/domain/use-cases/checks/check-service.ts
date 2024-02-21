@@ -23,7 +23,11 @@ export class CheckService implements ICheckServiceUseCase {
       return true
     } catch ( error ) {
       const errorMessage = `Error on Check Service ${ url }: ${ error }`
-      const log = new LogEntity( errorMessage, ELogSeverityLevel.high )
+      const log = new LogEntity({
+        message: errorMessage,
+        level: ELogSeverityLevel.high,
+        origin: 'check-service.ts'
+      })
       this.logRepository.saveLog( log )
       this.errorCallback && this.errorCallback( errorMessage )
       return false
