@@ -1,17 +1,20 @@
-import { CheckService, LogRepository } from '../domain'
+import { CheckService, ELogSeverityLevel, LogRepository, SendEmailLogs } from '../domain'
 import { CronService } from './cron'
-import { FileSystemDatasource, LogRepositoryImpl } from '../infrastructure'
+import { FileSystemDatasource, LogRepositoryImpl, MongoLogDatasource } from '../infrastructure'
 import { EmailService } from './email'
-import { SendEmailLogs } from '../domain/use-cases/email'
 
 const fileSystemLogRepository = new LogRepositoryImpl(
+  new FileSystemDatasource()
+)
+
+const logRepository = new LogRepositoryImpl(
   new FileSystemDatasource()
 )
 
 const emailService = new EmailService()
 
 export class Server {
-  public static start () {
+  static start = async () => {
     console.log( 'Pxndxs 🐼 Server started ⭐' )
 
     // new SendEmailLogs(
@@ -19,7 +22,6 @@ export class Server {
     //   fileSystemLogRepository
     // ).execute([
     //   'jricaldij@est.emi.edu.bo',
-    //   'marlene.totoro.11@gmail.com'
     // ])
 
     // emailService.sendEmailWithFileSystemLogs([
@@ -28,19 +30,21 @@ export class Server {
     // ])
 
     // const url = 'http://localhost:3000/characters'
-
-    // const onSuccess = () => console.log( `Success: ${ url }` )
-    // const onError = ( error : string ) => console.log( `Error: ${ error }` )
-
+    //
+    // const onSuccess = () => console.log( `${ url } is up 🚀` )
+    // const onError = ( error : string ) => console.log( `${ url } is down ❌`, error )
+    //
     // CronService.createJob(
     //   '*/5 * * * * *',
     //   () => {
     //     new CheckService(
-    //       fileSystemLogRepository,
+    //       logRepository,
     //       onSuccess,
     //       onError
     //     ).execute( url )
     //   }
     // )
+    const logs = await logRepository.getLogsByLevel( ELogSeverityLevel.high )
+    console.log( logs )
   }
 }

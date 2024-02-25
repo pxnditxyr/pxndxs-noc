@@ -48,44 +48,8 @@ export class EmailService {
 
     const subject = 'Sending Email with System Logs'
     const htmlBody = `
-        <!DOCTYPE html>
-        <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <meta http-equiv="X-UA-Compatible" content="ie=edge">
-                <title> example.html </title>
-                <style>
-                    .container {
-    width: 300px;
-    height: 200px;
-    background-color: #1B4242;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    border-radius: 20px;
-}
-
-.container p {
-    text-wrap: pretty;
-    width: 100%;
-    text-align: center;
-}
-
-                </style>
-            </head>
-            <body>
-                <article class="container">
-    <h1> Coffy Code </h1>
-    <p> Este es el codigo de verificacion 857689</p>
-</article>
-                <script>
-                    
-                </script>
-            </body>
-        </html>
+      <h1> Sending Email with System Logs </h1>
+      <p> This is a test email </p>
     `
     const attachments : IAttachment[] = [
       { filename: 'logs-all.log', path: './logs/logs-all.log' },

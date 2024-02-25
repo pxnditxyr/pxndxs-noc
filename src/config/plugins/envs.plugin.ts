@@ -55,9 +55,15 @@ class ConfigEnvironment {
 }
 
 export const envs = {
-  PORT: ConfigEnvironment.get( 'PORT' ).isRequired().isPort().asNumber(),
-  MAILER_EMAIL: ConfigEnvironment.get( 'MAILER_EMAIL' ).isRequired().asString(),
+  PORT:              ConfigEnvironment.get( 'PORT' ).isRequired().isPort().asNumber(),
+  MAILER_EMAIL:      ConfigEnvironment.get( 'MAILER_EMAIL' ).isRequired().asString(),
   MAILER_SECRET_KEY: ConfigEnvironment.get( 'MAILER_SECRET_KEY' ).isRequired().asString(),
-  MAILER_SERVICE: ConfigEnvironment.get( 'MAILER_SERVICE' ).isRequired().asString(),
-  PROD: ConfigEnvironment.get( 'PROD' ).isRequired().isBool().asBool(),
+  MAILER_SERVICE:    ConfigEnvironment.get( 'MAILER_SERVICE' ).isRequired().asString(),
+  PROD:              ConfigEnvironment.get( 'PROD' ).isRequired().isBool().asBool(),
+  
+  MONGO_URI:  ConfigEnvironment.get( 'MONGO_URI' ).isRequired().asString(),
+  MONGO_DB:   ConfigEnvironment.get( 'MONGO_DB' ).isRequired().asString(),
+  MONGO_USER: ConfigEnvironment.get( 'MONGO_USER' ).isRequired().asString(),
+  MONGO_PASS: ConfigEnvironment.get( 'MONGO_PASS' ).isRequired().asString(),
+  MONGO_PORT: ConfigEnvironment.get( 'MONGO_PORT' ).isRequired().isPort().asNumber(),
 }
