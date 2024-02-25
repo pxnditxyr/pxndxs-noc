@@ -1,6 +1,5 @@
 import nodemailer from 'nodemailer'
 import { envs } from '../../config'
-import { ELogSeverityLevel, LogEntity } from '../../domain'
 
 
 interface IAttachment {

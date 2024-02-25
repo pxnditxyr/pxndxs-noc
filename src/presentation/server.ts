@@ -1,17 +1,21 @@
-import { CheckService, ELogSeverityLevel, LogRepository, SendEmailLogs } from '../domain'
+import { FileSystemDatasource, LogRepositoryImpl, MongoLogDatasource, PostgresLogDatasource } from '../infrastructure'
+import { CheckServiceMultiple } from '../domain'
 import { CronService } from './cron'
-import { FileSystemDatasource, LogRepositoryImpl, MongoLogDatasource } from '../infrastructure'
-import { EmailService } from './email'
 
 const fileSystemLogRepository = new LogRepositoryImpl(
   new FileSystemDatasource()
 )
 
-const logRepository = new LogRepositoryImpl(
-  new FileSystemDatasource()
+const mongoLogRepository = new LogRepositoryImpl(
+  new MongoLogDatasource()
 )
 
-const emailService = new EmailService()
+const postgresLogRepository = new LogRepositoryImpl( 
+  new PostgresLogDatasource()
+)
+
+
+// const emailService = new EmailService()
 
 export class Server {
   static start = async () => {
@@ -21,30 +25,31 @@ export class Server {
     //   emailService,
     //   fileSystemLogRepository
     // ).execute([
-    //   'jricaldij@est.emi.edu.bo',
+    //   'pxndxs@pxndxs.com'
     // ])
 
     // emailService.sendEmailWithFileSystemLogs([
-    //   // 'jiquispech@est.emi.edu.bo',
-    //   'jricaldij@est.emi.edu.bo'
+    //   'pxndxs@pxndxs.com'
     // ])
 
-    // const url = 'http://localhost:3000/characters'
-    //
-    // const onSuccess = () => console.log( `${ url } is up 🚀` )
-    // const onError = ( error : string ) => console.log( `${ url } is down ❌`, error )
-    //
-    // CronService.createJob(
-    //   '*/5 * * * * *',
-    //   () => {
-    //     new CheckService(
-    //       logRepository,
-    //       onSuccess,
-    //       onError
-    //     ).execute( url )
-    //   }
-    // )
-    const logs = await logRepository.getLogsByLevel( ELogSeverityLevel.high )
-    console.log( logs )
+    const url = 'http://localhost:3000/characters'
+
+    const onSuccess = () => console.log( `${ url } is up 🚀` )
+    const onError = ( error : string ) => console.log( `${ url } is down ❌`, error )
+
+    CronService.createJob(
+      '*/5 * * * * *',
+      () => {
+        new CheckServiceMultiple(
+          [
+            fileSystemLogRepository,
+            mongoLogRepository,
+            postgresLogRepository
+          ],
+          onSuccess,
+          onError
+        ).execute( url )
+      }
+    )
   }
 }
