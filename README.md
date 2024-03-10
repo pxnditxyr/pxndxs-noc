@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://github.com/pxnditxyr/pxndxs-ui">
-        <img width="20%" src="https://remind-me-plz.netlify.app/yuki.svg" alt="Pxndxs" />
+        <img width="20%" src="https://camo.githubusercontent.com/88a3d6c2df50a4514fe5058ac033ad70aa295adce83327062b7158ab647a27c9/68747470733a2f2f72656d696e642d6d652d706c7a2e6e65746c6966792e6170702f79756b692e737667" alt="Pxndxs" />
         <h1 align="center"> Pxndxs NOC </h1>
     </a>
 </p>
